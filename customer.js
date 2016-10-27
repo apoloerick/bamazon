@@ -1,19 +1,29 @@
-//load the NPM package 
+//Modules 
 var mysql      = require('mysql');
 var inquirer   = require('inquirer');
+var queries	   = require('/.queries')
 
-//setting up global variables
 
-var user=;
+//setting up a server connection
+var connection = mysql.createConnection({
+  host     : 'vhw3t8e71xdz9k14.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+  user     : 'hatuc0i9gyqj9mfp',
+  password : 'i62aphdy0h3d0rt3',
+  database : 'xxnj8e6dligu5izc'
+});
 
-//crud commands
 
-var create =;
-var read =;
-var update =;
-var delete =;
+//display items
+function display(item, callback){
 
-// Create a prompt with a series of questions
+	item.query()
+}
+
+// create functions for use in main function
+
+function askUser(){
+
+	// prompt part
 
 inquirer.prompt([
 	{
@@ -28,26 +38,31 @@ inquirer.prompt([
 		name:"quantity"
 	}
 
-	]).then(function(user){})
+	]).then(function(user){
+		//update id number and quantity
+		
+		idNum = user.idnumber;
 
-//setting up a server connection
+		quant = user.quantity;
+		//check
+		console.log("Your item Id Number is: "+idNum,"Quantity: "+quant)
+	})
 
-var connection = mysql.createConnection({
-  host     : 'vhw3t8e71xdz9k14.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-  user     : 'hatuc0i9gyqj9mfp',
-  password : 'i62aphdy0h3d0rt3',
-  database : 'xxnj8e6dligu5izc'
-});
 
- //run connection
-
-connection.connect();
+}
+askUser();
  
-connection.query('SELECT 4 + 14 AS solution', function(err, rows, fields) {
+connection.query('u 4 + 14 AS solution', function(err, rows, fields) {
   if (err) throw err;
  
   console.log('The solution is: ', rows[0].solution);
 });
  
 
-connection.end();
+ //run connection
+
+connection.connect(function(err){
+
+	if(err) throw err;
+	display(connection);
+})
