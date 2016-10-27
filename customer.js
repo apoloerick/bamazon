@@ -1,7 +1,6 @@
 //Modules 
 var mysql      = require('mysql');
 var inquirer   = require('inquirer');
-var queries	   = require('/.queries')
 
 
 //setting up a server connection
@@ -12,12 +11,8 @@ var connection = mysql.createConnection({
   database : 'xxnj8e6dligu5izc'
 });
 
+connection.connect();
 
-//display items
-function display(item, callback){
-
-	item.query()
-}
 
 // create functions for use in main function
 
@@ -50,19 +45,28 @@ inquirer.prompt([
 
 
 }
-askUser();
+
+// askUser();
  
-connection.query('u 4 + 14 AS solution', function(err, rows, fields) {
+connection.query("SELECT * FROM PRODUCTS;", function(err, res) {
   if (err) throw err;
+
+console.log(res);
+console.log(res[0]);
+console.log(res[0].ItemID);
+console.log(res[0].ProductName);
+
+ // for (var i = 0; i < res.length; i++) {
+ // 	console.log("This is connection: " + i + " " + JSON.stringify(res[i], null, 2));
+ // }
  
-  console.log('The solution is: ', rows[0].solution);
 });
  
 
  //run connection
 
-connection.connect(function(err){
+// connection.connect(function(err){
 
-	if(err) throw err;
-	display(connection);
-})
+// 	if(err) throw err;
+// 	display(connection);
+// })
